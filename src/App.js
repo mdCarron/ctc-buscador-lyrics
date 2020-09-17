@@ -1,27 +1,37 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Formulario from "./components/Formulario";
 import axios from "axios";
+import Resultados from "./components/Resultados";
 
 function App() {
   const [busquedaletra, guardarBusquedaLetra] = useState({});
   const [letra, guardarLetra] = useState("");
+  const [info, guardarInfo] = useState("");
 
   useEffect(() => {
     if (Object.keys(busquedaletra).length === 0) {
       return;
     }
     // Fetch a las APIs
-    const consultarApiLetras = async () => {
+    const consultarApis = async () => {
       const { artista, cancion } = busquedaletra;
-      const url = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
-      const letra = await axios.get(url);
+      const urlLetra = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
+
+      const urlInfo = `https://theaudiodb.com/api/v1/json/1/search.php?s=${artista}`;
+
+      const [info, letra] = await Promise.all([
+        axios.get(urlInfo),
+        axios.get(urlLetra),
+      ]);
+      guardarInfo(info.data.artists[0]);
       guardarLetra(letra.data.lyrics);
     };
-    consultarApiLetras();
+    consultarApis();
   }, [busquedaletra]);
   return (
     <Fragment>
       <Formulario guardarBusquedaLetra={guardarBusquedaLetra} />
+      <Resultados busquedaletra={busquedaletra} letra={letra} info={info} />
     </Fragment>
   );
 }
