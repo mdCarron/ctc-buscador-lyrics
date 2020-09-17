@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Error from "./Error";
+import PropTypes from "prop-types";
 
 const Formulario = ({ guardarBusquedaLetra }) => {
   const [busqueda, guardarBusqueda] = useState({
@@ -29,7 +30,7 @@ const Formulario = ({ guardarBusquedaLetra }) => {
   };
 
   return (
-    <div className="bg-info">
+    <div className="bg-info mb-5">
       {error ? <Error mensaje="Todos los campos son obligatorios" /> : null}
       <div className="container">
         <div className="row">
@@ -81,6 +82,10 @@ const Formulario = ({ guardarBusquedaLetra }) => {
       </div>
     </div>
   );
+};
+
+Formulario.propTypes = {
+  guardarBusquedaLetra: PropTypes.func.isRequired,
 };
 
 export default Formulario;

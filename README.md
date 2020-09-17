@@ -11,8 +11,8 @@ Proyecto de aprendizaje realizado en el curso **Desarrollo FrontEnd con React**,
 ## 🔍 Objetivos
 
 - Profundiza sobre elementos fundamentales de React
-- Style Components
-- Fetch APIs (Axios)
+- Bootstrap CSS
+- Fetch a multiples APIs (Axios)
 - PropTypes
 - Deploy (Netlify)
 
